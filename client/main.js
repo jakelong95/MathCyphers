@@ -7,7 +7,7 @@ var stage = new PIXI.Container();
 
 const STATE_MENU = 0;
 const STATE_IN_GAME = 1;
-int state = STATE_MENU;
+var state = STATE_MENU;
 
 animate();
 
