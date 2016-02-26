@@ -17,11 +17,6 @@ function switchToGameMode()
 	problem = generateFunction();
 }
 
-function renderGame()
-{
-	
-}
-
 function generateFunction()
 {
 	if(operation === '/')

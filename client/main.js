@@ -14,7 +14,6 @@ var DIFFICULTY_HARD = 2;
 var difficulty = DIFFICULTY_EASY;
 var operation = '+';
 
-var renderFunction = renderGame;
 switchToGameMode();
 animate();
 
@@ -22,7 +21,6 @@ function animate()
 {
 	requestAnimationFrame(animate);
 
-	renderFunction();
 
 	renderer.render(stage);
 }
