@@ -1,7 +1,5 @@
 var score = 0;
-
-
-var problem = new Object();
+var answer = -1;
 
 function switchToGameMode()
 {
@@ -28,11 +26,11 @@ function generateFunction()
 {
 	if(operation === '/')
 	{
-		return generateDivisionProblem();
+		generateDivisionProblem();
 	}
 	
 	//Stores the two operands and the result
-	var triple = new Object();
+	var operands = new Array();
 	
 	var lowerBound = 0, upperBound;
 	switch(difficulty)
@@ -48,22 +46,22 @@ function generateFunction()
 			break;
 	}
 	
-	triple.operands[0] = Math.floor(Math.random() * upperBound);
-	triple.operands[1] = Math.floor(Math.random() * upperBound);
+	operands[0] = Math.floor(Math.random() * upperBound);
+	operands[1] = Math.floor(Math.random() * upperBound);
 	switch(operator)
 	{
 		case '+':
-			triple.answer = triple.operands[0] + triple.operands[1];
+			answer = operands[0] + operands[1];
 			break;
 		case '-':
-			triple.answer = triple.operands[0] - triple.operands[1];
+			answer = operands[0] - operands[1];
 			break;
 		case 'x':
-			triple.answer = triple.operands[0] * triple.operands[1];
+			answer = operands[0] * operands[1];
 			break;
 	}
 	
-	return triple;
+	
 }
 
 function generateDivisionProblem()
