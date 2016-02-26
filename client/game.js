@@ -12,9 +12,37 @@ function switchToGameMode()
 	var scoreText = new PIXI.Text("Score: ", textOptions);
 	scoreText.x = scoreText.y = 0;
 	stage.addChild(scoreText);
-	renderFunction = renderGame;
 	
-	problem = generateFunction();
+	updateProblem();
+}
+
+function updateProblem()
+{
+	operands = generateFunction();
+	
+	var textOptions = 
+	{
+		font: 'bold 64px Roboto',
+		fill: '#008EBD',
+		lineJoin: 'round'
+	};
+	var operand1Text = new PIXI.Text(operands[0], textOptions);
+	operand1Text.x = 140;
+	operand1Text.y = 180;
+	var operationText = new PIXI.Text(operation, textOptions);
+	operationText.x = 210;
+	operationText.y = 180;
+	var operand2Text = new PIXI.Text(operands[1], textOptions);
+	operand2Text.x = 260;
+	operand2Text.y = 180;
+	var equalsText = new PIXI.Text('=', textOptions);
+	equalsText.x = 340;
+	equalsText.y = 180;
+	
+	stage.addChild(operand1Text);
+	stage.addChild(operationText);
+	stage.addChild(operand2Text);
+	stage.addChild(equalsText);
 }
 
 function generateFunction()
@@ -43,7 +71,7 @@ function generateFunction()
 	
 	operands[0] = Math.floor(Math.random() * upperBound);
 	operands[1] = Math.floor(Math.random() * upperBound);
-	switch(operator)
+	switch(operation)
 	{
 		case '+':
 			answer = operands[0] + operands[1];
@@ -56,7 +84,7 @@ function generateFunction()
 			break;
 	}
 	
-	
+	return operands;
 }
 
 function generateDivisionProblem()

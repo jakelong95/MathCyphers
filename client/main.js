@@ -11,7 +11,7 @@ var state = STATE_MENU;
 var DIFFICULTY_EASY = 0;
 var DIFFICULTY_MED = 1;
 var DIFFICULTY_HARD = 2;
-var difficulty = DIFFICULTY_EASY;
+var difficulty = DIFFICULTY_HARD;
 var operation = '+';
 
 switchToGameMode();
@@ -20,7 +20,6 @@ animate();
 function animate() 
 {
 	requestAnimationFrame(animate);
-
 
 	renderer.render(stage);
 }
