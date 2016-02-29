@@ -63,9 +63,18 @@ function updateProblem()
 
 function generateFunction()
 {
-	if(operation === '/')
+	var generateDivisionProblem = function(upper)
 	{
-		generateDivisionProblem();
+		var operands = new Array();
+		operands[0] = Math.floor(Math.random() * upperBound);
+		operands[1] = Math.floor(Math.random() * upperBound) + 1;
+		
+		while(operands[0] / operands[1] % 1 != 0)
+		{
+			operands[1]--;
+		}
+		
+		return operands;
 	}
 	
 	//Stores the two operands and the result
@@ -84,9 +93,16 @@ function generateFunction()
 			upperBound = 20;
 			break;
 	}
-	
-	operands[0] = Math.floor(Math.random() * upperBound);
-	operands[1] = Math.floor(Math.random() * upperBound);
+
+	if(operation === '/')
+	{
+		operands = generateDivisionProblem(upperBound);
+	}	
+	else
+	{
+		operands[0] = Math.floor(Math.random() * upperBound);
+		operands[1] = Math.floor(Math.random() * upperBound);
+	}
 	switch(operation)
 	{
 		case '+':
@@ -98,14 +114,11 @@ function generateFunction()
 		case 'x':
 			answer = operands[0] * operands[1];
 			break;
+		case '/':
+			answer = operands[0] / operands[1];
 	}
 	
 	return operands;
-}
-
-function generateDivisionProblem()
-{
-	
 }
 
 function handleInput(event)
