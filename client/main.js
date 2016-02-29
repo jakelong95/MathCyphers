@@ -8,11 +8,14 @@ const STATE_MENU = 0;
 const STATE_IN_GAME = 1;
 var state = STATE_MENU;
 
-var DIFFICULTY_EASY = 0;
-var DIFFICULTY_MED = 1;
-var DIFFICULTY_HARD = 2;
+const DIFFICULTY_EASY = 0;
+const DIFFICULTY_MED = 1;
+const DIFFICULTY_HARD = 2;
 var difficulty = DIFFICULTY_HARD;
 var operation = '+';
+
+//Indices correspond to DIFFICULTY_X above
+const POINTS_PER_PROBLEM = [10, 20, 30];
 
 switchToGameMode();
 animate();
