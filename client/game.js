@@ -1,7 +1,10 @@
 var score = 0;
 var answer = -1;
 
-var operand1Text, operand2Text;
+var operand1Text, operand2Text; //Displays the operands to the user
+var answerText; //Displays the answer the user has typed
+var currentAnswer = ''; //String containing what the user has typed so far
+var currentScoreText; //Displays the current score
 
 function switchToGameMode()
 {
@@ -19,6 +22,10 @@ function switchToGameMode()
 	var scoreText = new PIXI.Text("Score: ", textOptions);
 	scoreText.x = scoreText.y = 0;
 	stage.addChild(scoreText);
+	currentScoreText = new PIXI.Text(score, textOptions);
+	currentScoreText.x = 110;
+	currentScoreText.y = 0;
+	stage.addChild(currentScoreText);
 	
 	updateProblem();
 }
@@ -102,7 +109,75 @@ function generateDivisionProblem()
 }
 
 function handleInput(event)
-{	
-	var num = event.keyCode - 48;
-	alert(num);
+{
+	var updateAnswerText = function()
+	{
+		stage.removeChild(answerText);
+		var textOptions = 
+		{
+			font: 'bold 64px Roboto',
+			fill: '#008EBD',
+			lineJoin: 'round'
+		};
+		answerText = new PIXI.Text(currentAnswer, textOptions);
+		answerText.x = 390;
+		answerText.y = 180;
+		stage.addChild(answerText);
+	};
+	
+	var updateScoreText = function()
+	{
+		stage.removeChild(currentScoreText);
+		
+		var textOptions = 
+		{
+			font: 'bold 40px Roboto',
+			fill: '#ff0000',
+			lineJoin: 'round'
+		};
+		currentScoreText = new PIXI.Text(score, textOptions);
+		currentScoreText.x = 110;
+		currentScoreText.y = 0;
+		stage.addChild(currentScoreText);
+	};
+	
+	//Handle backspace
+	if(event.keyCode === 8)
+	{
+		if(currentAnswer.length > 0)
+		{
+			currentAnswer = currentAnswer.substring(0, currentAnswer.length - 1);
+			updateAnswerText();
+		}
+
+		return;
+	}
+	
+	var num = 0;
+	//Only accept numeric input
+	if(event.keyCode >= 48 && event.keyCode <= 57)
+	{
+		num = event.keyCode - 48;
+	}
+	else if(event.keyCode >= 96 && event.keyCode <= 105)
+	{
+		num = event.keyCode - 96;
+	}
+	else
+	{
+		return;
+	}
+	
+	currentAnswer = currentAnswer + num;
+	updateAnswerText(currentAnswer);
+	
+	if(answer == currentAnswer)
+	{
+		score += POINTS_PER_PROBLEM[difficulty];
+		
+		updateScoreText();
+		currentAnswer = '';
+		updateAnswerText();
+		updateProblem();
+	}
 }
