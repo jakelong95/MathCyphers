@@ -1,8 +1,15 @@
 var score = 0;
 var answer = -1;
 
+var operand1Text, operand2Text;
+
 function switchToGameMode()
 {
+	document.addEventListener('keydown', function(event)
+	{
+		handleInput(event);
+	});
+	
 	var textOptions = 
 	{
 		font: 'bold 40px Roboto',
@@ -18,6 +25,8 @@ function switchToGameMode()
 
 function updateProblem()
 {
+	stage.removeChild(operand1Text);
+	stage.removeChild(operand2Text);
 	operands = generateFunction();
 	
 	var textOptions = 
@@ -26,13 +35,13 @@ function updateProblem()
 		fill: '#008EBD',
 		lineJoin: 'round'
 	};
-	var operand1Text = new PIXI.Text(operands[0], textOptions);
+	operand1Text = new PIXI.Text(operands[0], textOptions);
 	operand1Text.x = 140;
 	operand1Text.y = 180;
 	var operationText = new PIXI.Text(operation, textOptions);
 	operationText.x = 210;
 	operationText.y = 180;
-	var operand2Text = new PIXI.Text(operands[1], textOptions);
+	operand2Text = new PIXI.Text(operands[1], textOptions);
 	operand2Text.x = 260;
 	operand2Text.y = 180;
 	var equalsText = new PIXI.Text('=', textOptions);
@@ -90,4 +99,10 @@ function generateFunction()
 function generateDivisionProblem()
 {
 	
+}
+
+function handleInput(event)
+{	
+	var num = event.keyCode - 48;
+	alert(num);
 }
