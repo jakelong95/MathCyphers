@@ -1,10 +1,19 @@
 var score = 0;
 var answer = -1;
 
-var operand1Text, operand2Text; //Displays the operands to the user
+var operand1Text, operand2Text, operationText; //Displays the operands to the user
 var answerText; //Displays the answer the user has typed
 var currentAnswer = ''; //String containing what the user has typed so far
 var currentScoreText; //Displays the current score
+var operation = '+';
+var operations = [];
+const DIFFICULTY_EASY = 0;
+const DIFFICULTY_MED = 1;
+const DIFFICULTY_HARD = 2;
+var difficulty = DIFFICULTY_EASY;
+
+//Indices correspond to DIFFICULTY_X above
+const POINTS_PER_PROBLEM = [10, 20, 30];
 
 function switchToGameMode()
 {
@@ -34,6 +43,7 @@ function updateProblem()
 {
 	stage.removeChild(operand1Text);
 	stage.removeChild(operand2Text);
+    stage.removeChild(operationText);
 	operands = generateFunction();
 	
 	var textOptions = 
@@ -45,7 +55,7 @@ function updateProblem()
 	operand1Text = new PIXI.Text(operands[0], textOptions);
 	operand1Text.x = 140;
 	operand1Text.y = 180;
-	var operationText = new PIXI.Text(operation, textOptions);
+    operationText = new PIXI.Text(operation, textOptions);
 	operationText.x = 210;
 	operationText.y = 180;
 	operand2Text = new PIXI.Text(operands[1], textOptions);
@@ -63,6 +73,9 @@ function updateProblem()
 
 function generateFunction()
 {
+    
+    operation = operations[Math.floor(Math.random() * (operations.length))];
+    
 	var generateDivisionProblem = function(upper)
 	{
 		var operands = new Array();
@@ -109,6 +122,15 @@ function generateFunction()
 			answer = operands[0] + operands[1];
 			break;
 		case '-':
+            if(difficulty == 0)
+            {
+                if(operands[0] < operands[1])
+                {
+                    operands[0] += operands[1];
+                    operands[1] = operands[0] - operands[1];
+                    operands[0] -= operands[1];
+                }
+            }
 			answer = operands[0] - operands[1];
 			break;
 		case 'x':
@@ -132,6 +154,7 @@ function handleInput(event)
 			fill: '#008EBD',
 			lineJoin: 'round'
 		};
+        
 		answerText = new PIXI.Text(currentAnswer, textOptions);
 		answerText.x = 390;
 		answerText.y = 180;
@@ -157,6 +180,7 @@ function handleInput(event)
 	//Handle backspace
 	if(event.keyCode === 8)
 	{
+        event.preventDefault();
 		if(currentAnswer.length > 0)
 		{
 			currentAnswer = currentAnswer.substring(0, currentAnswer.length - 1);
@@ -176,6 +200,15 @@ function handleInput(event)
 	{
 		num = event.keyCode - 96;
 	}
+    else if(event.keyCode == 189)
+    {
+        if(currentAnswer.length == 0)
+        {
+            currentAnswer = '-';
+            updateAnswerText();
+        }
+        return;
+    }
 	else
 	{
 		return;
