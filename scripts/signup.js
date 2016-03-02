@@ -1,6 +1,4 @@
-
-    
-    $("#submitSignup").click(function(){
+$("#submitSignup").click(function(){
         
         
         var un = $("#username").val();
@@ -37,16 +35,22 @@
         //Handle Validation
         
         if(success){
+            $("#gameBody").html("");
             $("#gameBody").load("difficulty.html");
         }
         else{
             return false;
         }
+    
+        $("#gameBody").html("");
         
         var script = document.createElement("script");
+        script.id = "diffscript";
         script.type = "text/javascript";
         script.src = "scripts/difficulty.js"; 
         document.getElementsByTagName("head")[0].appendChild(script);
+    
+        $("#suscript").remove();
         
         return false;
     });

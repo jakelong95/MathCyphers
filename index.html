@@ -26,16 +26,21 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
         <script>
         $("#login").click(function(){
+            
+            $("#gameBody").html("");
             $("#gameBody").load("login.html");
             var script = document.createElement("script");
+            script.id = "liscript";
             script.type = "text/javascript";
             script.src = "scripts/login.js"; 
             document.getElementsByTagName("head")[0].appendChild(script);
             return false;
         });
         $("#signup").click(function(){
+            $("#gameBody").html("");
             $("#gameBody").load("signup.html");
             var script = document.createElement("script");
+            script.id = "suscript";
             script.type = "text/javascript";
             script.src = "scripts/signup.js"; 
             document.getElementsByTagName("head")[0].appendChild(script);

@@ -1,6 +1,9 @@
 $("#begin").click(function(){
     
     operations = [];
+    POINTS_PER_PROBLEM[0] = 10;
+    POINTS_PER_PROBLEM[1] = 20;
+    POINTS_PER_PROBLEM[2] = 30;
     var opSelected = false;
     
     
@@ -45,7 +48,7 @@ $("#begin").click(function(){
         opSelected = true;
     }
     
-    if(!opSelected)
+    if(opSelected == false)
     {
         return false;
     }
@@ -54,11 +57,31 @@ $("#begin").click(function(){
     
     $("#gameBody").css({"padding":"0px"});
     
-    $("#gameBody").html("");
+    if(typeof renderer === 'undefined')
+    {
+        $("#gameBody").html("");
+        var script = document.createElement("script");
+        script.id = "mainscript";
+        script.type = "text/javascript";
+        script.src = "client/main.js"; 
+        document.getElementsByTagName("head")[0].appendChild(script);   
+    }
+    else
+    {
+        $("#gameBody").html("");
+        $("#gameBody").append(renderer.view);
+        currentAnswer = '';
+		updateAnswerText();
+		updateProblem();
+    }
+    
     var script = document.createElement("script");
+    script.id = "navscript";
     script.type = "text/javascript";
-    script.src = "client/main.js"; 
+    script.src = "scripts/nav.js"; 
     document.getElementsByTagName("head")[0].appendChild(script);
+    
+    $("#diffscript").remove();
     
     return false; 
     

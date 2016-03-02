@@ -53,7 +53,7 @@ function updateProblem()
 		lineJoin: 'round'
 	};
 	operand1Text = new PIXI.Text(operands[0], textOptions);
-	operand1Text.x = 140;
+	operand1Text.x = 110;
 	operand1Text.y = 180;
     operationText = new PIXI.Text(operation, textOptions);
 	operationText.x = 210;
@@ -79,8 +79,9 @@ function generateFunction()
 	var generateDivisionProblem = function(upper)
 	{
 		var operands = new Array();
-		operands[0] = Math.floor(Math.random() * upperBound);
+		var temp = Math.floor(Math.random() * upperBound);
 		operands[1] = Math.floor(Math.random() * upperBound) + 1;
+        operands[0] = temp * operands[1];
 		
 		while(operands[0] / operands[1] % 1 != 0)
 		{
@@ -145,7 +146,7 @@ function generateFunction()
 
 function handleInput(event)
 {
-	var updateAnswerText = function()
+	window.updateAnswerText = function()
 	{
 		stage.removeChild(answerText);
 		var textOptions = 
